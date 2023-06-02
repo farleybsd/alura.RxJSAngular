@@ -1,0 +1,6 @@
+
+1 - Criando um Service
+ng g s service/livro
+
+2 - Api
+https://www.googleapis.com/books/v1/volumes?q=search+terms
