@@ -1,5 +1,8 @@
+import { Item, VolumeInfo } from './../../models/interfaces';
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Livro } from 'src/app/models/interfaces';
+import { LivroVolumeInfo } from 'src/app/models/livroVolumeInfo';
 import { LivroService } from 'src/app/service/livro.service';
 
 @Component({
@@ -9,17 +12,17 @@ import { LivroService } from 'src/app/service/livro.service';
 })
 export class ListaLivrosComponent implements OnDestroy {
 
-  listaLivros: [];
+  listaLivros: LivroVolumeInfo[];
   campousca: string = '';
   subscription: Subscription;
+  livro: Livro;
 
   constructor(private service: LivroService) { }
 
-  buscarLivros() 
-  {
+  buscarLivros() {
     this.subscription = this.service.buscar(this.campousca).subscribe({
-      next: retornoApi => {
-        console.log(retornoApi);
+      next: items => {
+        this.listaLivros = this.livrosResultadoParaLivros(items);
       },
       error: error => {
         console.log(error);
@@ -30,7 +33,13 @@ export class ListaLivrosComponent implements OnDestroy {
     });
   }
 
-  ngOnDestroy(){
+  livrosResultadoParaLivros(items: Item[]): LivroVolumeInfo[] {
+    return items.map(item => {
+      return new LivroVolumeInfo(item)
+    })
+  }
+
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 }

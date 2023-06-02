@@ -4,3 +4,9 @@ ng g s service/livro
 
 2 - Api
 https://www.googleapis.com/books/v1/volumes?q=search+terms
+
+3 Criar uma interface a partir de json 
+https://quicktype.io/typescript
+
+4- Criando Pipe
+ng g pipe pipes/autoria
